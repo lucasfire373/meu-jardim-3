@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Meu Jardim App</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      overflow: hidden;
+      font-family: Arial, sans-serif;
+      background-color: #004d00;
+      color: white;
+    }
+
+    #splash {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: #004d00;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      z-index: 9999;
+    }
+
+    #logo {
+      max-width: 300px;
+      margin-bottom: 20px;
+    }
+
+    #main-content {
+      display: none;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+    }
+
+    .btn-agendar {
+      padding: 15px 30px;
+      font-size: 18px;
+      background-color: #28a745;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    .btn-agendar:hover {
+      background-color: #218838;
+    }
+
+    #formulario {
+      display: none;
+      margin-top: 30px;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    input, textarea {
+      margin: 10px;
+      padding: 10px;
+      width: 250px;
+      border-radius: 5px;
+      border: none;
+    }
+
+    #whatsapp-link {
+      margin-top: 20px;
+      display: none;
+    }
+
+    a {
+      color: #fff;
+      background-color: #25D366;
+      padding: 10px 20px;
+      border-radius: 5px;
+      text-decoration: none;
+    }
+
+    a:hover {
+      background-color: #1ebe5d;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="splash">
+    <img id="logo" src="Captura de tela 2025-11-13 102712.png" alt="Meu Jardim App Logo">
+    <h1>MEU JARDIM APP</h1>
+  </div>
+
+  <div id="main-content">
+    <h2>Bem-vindo ao Meu Jardim!</h2>
+    <button class="btn-agendar" onclick="mostrarFormulario()">Agendar Serviço</button>
+
+    <div id="formulario">
+      <label for="data">Escolha a data:</label>
+      <input type="date" id="data" lang="pt-BR">
+
+      <label for="servico">Descreva o serviço:</label>
+      <textarea id="servico" rows="4" placeholder="Ex: cortar grama, podar árvore..."></textarea>
+
+      <button class="btn-agendar" onclick="gerarLink()">Entrar em contato pelo WhatsApp</button>
+
+      <div id="whatsapp-link">
+        <a id="link" target="_blank">Enviar mensagem</a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    setTimeout(() => {
+      document.getElementById('splash').style.display = 'none';
+      document.getElementById('main-content').style.display = 'flex';
+      document.body.style.overflow = 'auto';
+    }, 3000);
+
+    function mostrarFormulario() {
+      document.getElementById('formulario').style.display = 'flex';
+    }
+
+    function gerarLink() {
+      const data = document.getElementById('data').value;
+      const servico = document.getElementById('servico').value;
+
+      // Converter data para formato brasileiro dd/mm/yyyy
+      let dataFormatada = "";
+      if (data) {
+        const partes = data.split("-");
+        dataFormatada = `${partes[2]}/${partes[1]}/${partes[0]}`;
+      }
+
+      const mensagem = `Olá! Gostaria de agendar um serviço para o dia ${dataFormatada}. Serviço: ${servico}`;
+      const numero = '48991739585'; // coloque seu número com DDD e país
+      const url = `https://wa.me/${numero}?text=${encodeURIComponent(mensagem)}`;
+      document.getElementById('link').href = url;
+      document.getElementById('whatsapp-link').style.display = 'block';
+    }
+  </script>
+
+</body>
+</html>
